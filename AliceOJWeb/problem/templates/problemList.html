@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+<title>problems</title>
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 5%;">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <table class="table" style="word-break:break-all; word-wrap:break-all;table-layout:10">
+                <thead>
+                    <tr>
+                        <th>title</th>
+                        <th>level</th>
+                        <th>author</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for problem in problemList %}
+                    <tr>
+                        <td><a href="{% url 'problem:detail' problem.id %}">{{ problem.title }}</a></td>
+                        <td>{{ problem.get_difficult_level_display}}</td>
+                        <td>{{ problem.author}}</td>
+                        <td>无</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% if pageData %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+
+                    {% if pageData.first %}
+                        <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                    {% endif %}
+
+                    {% if pageData.left %}
+                        {% if pageData.left_has_more %}
+                            <li><span>...</span></li>
+                        {% endif %}
+                        {% for i in pageData.left %}
+                            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                        {% endfor %}
+                    {% endif %}
+
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="?page={{pageData.page}}">{{pageData.page}}</a>
+                    </li>
+
+                    {% if pageData.right %}
+                        {% for i in pageData.right %}
+                            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                        {% endfor %}
+                            {% if pageData.right_has_more %}
+                                <li><span>...</span></li>
+                            {% endif %}
+                    {% endif %}
+
+                    {% if pageData.last %}
+                        <li class="page-item"><a class="page-link" href="?page={{pageData.total_pages}}">{{pageData.total_pages}}</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+
+            {% endif %}
+            <div class="clearfix visible-xs-block"></div>
+        </div>
+    </div>
+    {% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+<title>problems</title>
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <table class="table" style="word-break:break-all; word-wrap:break-all;table-layout:10">
+                <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>score</th>
+                        <th>accepted</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in user_data %}
+                    <tr>
+                        <td>{{ user.user.username }}</td>
+                        <td>{{ user.score }}</td>
+                        <td>{{ user.accepted_count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="clearfix visible-xs-block"></div>
+        </div>
+    </div>
+    {% endblock %}

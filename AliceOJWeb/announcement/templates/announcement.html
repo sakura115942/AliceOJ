@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+    <title>{{ menu }}</title>
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 5%;">
+    {{ announcement.post | safe }}
+</div>
+{% endblock %}

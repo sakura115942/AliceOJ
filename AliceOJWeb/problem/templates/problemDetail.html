@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+    <title>{{ problem.title }}</title>
+{% endblock %}
+
+{% block head %}
+    <link href="{% static 'codemirror/lib/codemirror.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/default.css' %}"/>
+    <script src="{% static 'codemirror/lib/codemirror.js' %}"></script>
+    <script src="{% static 'codemirror/mode/clike/clike.js' %}"></script>
+    
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container-fluid" style="padding-left: 50px; padding-top: 50px;">
+    <div class="row">
+        <div class="col-md-6" >
+            {{ problem.description | safe }}
+            <form action="{% url 'problem:submit' %}" method="post">
+                <textarea id="editor" name="code"></textarea>
+                <button class="btn btn-md btn-primary" type="submit">submit</button>
+            </form>
+            
+        </div>
+        <div class="col-md-6">
+            {% if answers %}
+            <textarea id="output" name="output">{{ answers.0.message }}</textarea>
+
+            <table class="table" style="word-break:break-all; word-wrap:break-all;table-layout:10">
+                <thead>
+                    <tr>
+                        <th>run_time</th>
+                        <th>memory</th> 
+                        <th>submit_time</th>
+                        <th>state</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for answer in answers %}
+                    <tr>
+                        <td>{{ answer.cpu_time }}ms</a></td>
+                        <td>{{ answer.use_memory }}KB</td>
+                        <td>{{ answer.judger_time }}</td>
+                        <td>{{ answer.state }}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+            {% else %}
+                <h3>暂无提交记录</h3>
+            {% endif %}
+        </div>
+      </div>
+</div>
+
+<style>
+    .clear-padding{
+        padding:0;
+    }
+    .clear-padding-row{
+        padding-left:0;
+        padding-right:0;
+    }
+    .clear-padding-col{
+        padding-top:0;
+        padding-bottom:0;
+    }
+</style>
+
+    
+<script>
+    var editor = CodeMirror.fromTextArea(
+        document.getElementById('editor'), {
+            matchBrackets: true,
+            mode: "text/x-csrc",
+            lineNumbers: true,
+            // theme: 'seti',
+        }
+    );
+    var output = CodeMirror.fromTextArea(
+        document.getElementById('output'), {
+            // matchBrackets: true,
+            // mode: "text/x-csrc",
+            // lineNumbers: true,
+            // theme: 'seti',
+        }
+    );
+</script>
+
+
+{% endblock %}

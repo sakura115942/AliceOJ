@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+<title>problems</title>
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-left: 20%; padding-right: 20%; padding-top: 5%;">
+    <ul class="list-group">
+        <li class="list-group-item">name: {{ user.username }}</li>
+        <li class="list-group-item">email: {{ user.email }}</li>
+        <li class="list-group-item">score: {{ user.userdata.score }}</li>
+        <li class="list-group-item">accepted: {{ user.userdata.accepted_count }}</li>
+    </ul>
+</div>
+{% endblock %}
